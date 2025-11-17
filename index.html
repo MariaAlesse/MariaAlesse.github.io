@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Down the Line – Maria Alesse (Demo)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #000;
+      color: #f7f7f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .bg {
+      position: fixed;
+      inset: 0;
+      background: url('cover_down_the_line.jpg') center/cover no-repeat fixed;
+      filter: blur(6px) brightness(0.5);
+      transform: scale(1.03);
+      z-index: -2;
+    }
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.15), transparent 55%),
+                  linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.85));
+      z-index: -1;
+    }
+    .card {
+      width: min(900px, 100% - 32px);
+      border-radius: 24px;
+      background: rgba(10,10,10,0.85);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+      padding: 24px 24px 28px;
+      backdrop-filter: blur(12px);
+      margin: 32px 0;
+    }
+    .header {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .cover {
+      width: 160px;
+      height: 160px;
+      border-radius: 18px;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .title-block {
+      flex: 1;
+      min-width: 220px;
+    }
+    .title-block h1 {
+      margin: 0 0 6px;
+      font-size: clamp(1.8rem, 3vw, 2.2rem);
+      letter-spacing: 0.03em;
+    }
+    .title-block h2 {
+      margin: 0 0 10px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #f9e2c5;
+    }
+    .title-block p {
+      margin: 2px 0;
+      font-size: 0.9rem;
+      color: #d8d8d8;
+    }
+    audio {
+      width: 100%;
+      margin: 10px 0 0;
+    }
+    .lyrics-title {
+      margin-top: 18px;
+      font-size: 0.95rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #f9e2c5;
+    }
+    .lyrics {
+      margin-top: 6px;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      white-space: normal;
+    }
+    .lyrics-inner {
+      max-height: 400px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+    .lyrics-inner::-webkit-scrollbar {
+      width: 6px;
+    }
+    .lyrics-inner::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.3);
+      border-radius: 999px;
+    }
+    .footer-note {
+      margin-top: 14px;
+      font-size: 0.75rem;
+      color: #b5b5b5;
+    }
+    @media (max-width: 600px) {
+      .card {
+        padding: 18px 16px 20px;
+      }
+      .cover {
+        width: 130px;
+        height: 130px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="overlay"></div>
+  <main class="card">
+    <div class="header">
+      <div class="cover">
+        <img src="cover_down_the_line.jpg" alt="Down the Line – cover art">
+      </div>
+      <div class="title-block">
+        <h2>MARIA ALESSE · DEMO</h2>
+        <h1>Down the Line</h1>
+        <p><strong>Writer &amp; Producer:</strong> Maria Alesse</p>
+        <p><strong>Genres:</strong> Country / Indie Pop / Indie Folk</p>
+        <audio controls>
+          <source src="Down_the_Line_Maria_Alesse_Demo_320kbps_UNIVERSAL.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </div>
+    <div class="lyrics">
+      <div class="lyrics-title">Lyrics</div>
+      <div class="lyrics-inner">
+        <p>
+Easy days trail behind me, reminding me<br>
+There’s nothing lost when a smile gets through.<br>
+Reachin’ back for warm salvation,<br>
+quiet becomes all my memories, of you—<br>
+you’re waiting somewhere… down the line—<br>
+<br>
+living blindly, no doubts, living fully,<br>
+never lost to sorrow…<br>
+still writin’ your timeline.<br>
+<br>
+Heaven’s just a doorway, I’m standin’ in the frame.<br>
+Morning spills all around me… warmth cuts right through—<br>
+nothing feels the same.<br>
+I’m breathing in spaces between your world and mine,<br>
+I’ll keep livin’ gently, finding my own timeline.<br>
+<br>
+Hold my breath, the world’s still turning,<br>
+Something wild is drawing near.<br>
+Eyes on eyes—the moment burning,<br>
+What we are feels clearer here.<br>
+Breath and heartbeat find their timing,<br>
+Quiet grace in borrowed space.<br>
+Life on life, the lines aligning,<br>
+Two worlds learning how to face.<br>
+<br>
+Another misty morning,<br>
+frost sparkles the way you shine.<br>
+What was lost ain’t gone forever,<br>
+you’re just waitin’ down the line.<br>
+<br>
+Heaven’s just a doorway, I’m standin’ in the frame.<br>
+Morning spills all around me… warmth cuts right through—<br>
+nothing feels the same.<br>
+I’m breathing in spaces between your world and mine,<br>
+I’ll keep livin’ gently, finding my own timeline.<br>
+<br>
+Easy days trail behind me, reminding me<br>
+the heart keeps beatin’, down the line…<br>
+beatin’ down the line…
+        </p>
+      </div>
+    </div>
+    <div class="footer-note">
+      © 2025 Maria Alesse. All Rights Reserved. Demo for listening and review purposes only.
+    </div>
+  </main>
+</body>
+</html>
