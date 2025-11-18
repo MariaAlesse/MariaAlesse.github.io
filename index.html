@@ -1,204 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Down the Line – Maria Alesse (Demo)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Down the Line · Maria Alesse (Demo)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Song demo: Down the Line by Maria Alesse. Listen to the full track and read the lyrics." />
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #000;
-      color: #f7f7f7;
+      min-height: 100vh;
+      color: #f7f3f0;
+      background:
+        linear-gradient(180deg, rgba(5, 10, 20, 0.9), rgba(10, 10, 30, 0.9)),
+        url("cover_down_the_line.jpg") center / cover fixed no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
+      padding: 24px;
     }
-    .bg {
-      position: fixed;
-      inset: 0;
-      background: url('cover_down_the_line.jpg') center/cover no-repeat fixed;
-      filter: blur(6px) brightness(0.5);
-      transform: scale(1.03);
-      z-index: -2;
+
+    .shell {
+      max-width: 980px;
+      width: 100%;
+      background: rgba(10, 10, 20, 0.88);
+      border-radius: 22px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.7);
+      backdrop-filter: blur(16px);
+      padding: 26px 26px 22px;
     }
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at top, rgba(255,255,255,0.15), transparent 55%),
-                  linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.85));
-      z-index: -1;
-    }
-    .card {
-      width: min(900px, 100% - 32px);
-      border-radius: 24px;
-      background: rgba(10,10,10,0.85);
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 24px 80px rgba(0,0,0,0.7);
-      padding: 24px 24px 28px;
-      backdrop-filter: blur(12px);
-      margin: 32px 0;
-    }
-    .header {
+
+    /* HEADER */
+    .top-row {
       display: flex;
-      gap: 20px;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
+      gap: 24px;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 18px;
     }
-    .cover {
-      width: 160px;
-      height: 160px;
+
+    .title-block { flex: 1; }
+    .tagline {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #f6d9b4;
+      margin-bottom: 4px;
+    }
+    h1 {
+      font-family: Georgia, serif;
+      font-size: 32px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .byline { font-size: 14px; margin-bottom: 4px; }
+    .meta { font-size: 11px; opacity: 0.8; letter-spacing: 0.12em; text-transform: uppercase; }
+
+    /* MAIN LAYOUT */
+    .main-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.4fr);
+      gap: 24px;
+    }
+
+    /* COVER + PLAYER */
+    .cover-and-player { display: flex; flex-direction: column; gap: 14px; }
+
+    .cover-box {
+      position: relative;
       border-radius: 18px;
       overflow: hidden;
-      flex-shrink: 0;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.7);
-      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 16px 34px rgba(0,0,0,0.8);
     }
-    .cover img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .cover-box img { width: 100%; display: block; }
+    .cover-gradient {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent 55%);
     }
-    .title-block {
-      flex: 1;
-      min-width: 220px;
+    .small-caption {
+      position: absolute; left: 14px; bottom: 12px;
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
     }
-    .title-block h1 {
-      margin: 0 0 6px;
-      font-size: clamp(1.8rem, 3vw, 2.2rem);
-      letter-spacing: 0.03em;
-    }
-    .title-block h2 {
-      margin: 0 0 10px;
-      font-size: 0.95rem;
-      font-weight: 500;
+
+    .audio-label {
+      font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: #f9e2c5;
+      letter-spacing: 0.16em;
+      color: #d1c0ff;
+      margin-bottom: 4px;
     }
-    .title-block p {
-      margin: 2px 0;
-      font-size: 0.9rem;
-      color: #d8d8d8;
-    }
+
     audio {
       width: 100%;
-      margin: 10px 0 0;
+      outline: none;
     }
-    .lyrics-title {
-      margin-top: 18px;
-      font-size: 0.95rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #f9e2c5;
-    }
-    .lyrics {
+
+    /* LOOP BUTTON */
+    .loop-btn {
       margin-top: 6px;
-      font-size: 0.95rem;
-      line-height: 1.65;
-      white-space: normal;
+      background: #292942;
+      color: #e6d8ff;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      cursor: pointer;
+      width: fit-content;
+      user-select: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: 0.3s;
     }
-    .lyrics-inner {
-      max-height: 400px;
-      overflow-y: auto;
-      padding-right: 6px;
+    .loop-btn:hover { background: #38385a; }
+    .loop-btn.active {
+      background: #5f4b9b;
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(140,120,255,0.7);
     }
-    .lyrics-inner::-webkit-scrollbar {
-      width: 6px;
+
+    /* LYRICS PANEL */
+    .lyrics-panel {
+      background: radial-gradient(circle at top left, rgba(255,204,153,0.15), transparent 60%),
+                  rgba(15,15,30,0.92);
+      border-radius: 18px;
+      padding: 18px;
+      max-height: 360px;
+      overflow: auto;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
     }
-    .lyrics-inner::-webkit-scrollbar-thumb {
-      background: rgba(255,255,255,0.3);
-      border-radius: 999px;
+    .lyrics-panel h2 {
+      font-size: 14px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      color: #f6d9b4;
     }
+    .lyrics { font-size: 14px; line-height: 1.55; white-space: pre-wrap; }
+
+    /* FOOTER */
     .footer-note {
-      margin-top: 14px;
-      font-size: 0.75rem;
-      color: #b5b5b5;
+      margin-top: 10px;
+      font-size: 11px;
+      color: #cbbfd8;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-end;
     }
-    @media (max-width: 600px) {
-      .card {
-        padding: 18px 16px 20px;
-      }
-      .cover {
-        width: 130px;
-        height: 130px;
-      }
+
+    .footer-contact a {
+      color: #e6d0ff;
+      text-decoration: none;
+    }
+    .footer-contact a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-copy {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer-caticorn {
+      width: 18px;
+      height: auto;
+      opacity: 0.7;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* MOBILE */
+    @media (max-width: 820px) {
+      body { padding: 16px; }
+      .shell { padding: 20px 18px 18px; border-radius: 18px; }
+      .top-row { flex-direction: column; gap: 10px; }
+      h1 { font-size: 26px; }
+      .main-row { grid-template-columns: 1fr; }
+      .lyrics-panel { max-height: none; }
+      .footer-note { align-items: flex-start; }
+    }
+
+    @media (max-width: 520px) {
+      h1 { font-size: 22px; }
+      .tagline { font-size: 11px; }
+      .byline { font-size: 13px; }
     }
   </style>
 </head>
+
 <body>
-  <div class="bg"></div>
-  <div class="overlay"></div>
-  <main class="card">
-    <div class="header">
-      <div class="cover">
-        <img src="cover_down_the_line.jpg" alt="Down the Line – cover art">
-      </div>
+  <div class="shell">
+
+    <!-- HEADER -->
+    <div class="top-row">
       <div class="title-block">
-        <h2>MARIA ALESSE · DEMO</h2>
+        <div class="tagline">Songwriter Demo</div>
         <h1>Down the Line</h1>
-        <p><strong>Writer &amp; Producer:</strong> Maria Alesse</p>
-        <p><strong>Genres:</strong> Country / Indie Pop / Indie Folk</p>
-        <audio controls>
-          <source src="Down_the_Line_Maria_Alesse_Demo_320kbps_UNIVERSAL.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
+        <div class="byline">Lyrics &amp; Composition by Maria Alesse</div>
+        <div class="meta">Demo • 2025 • All Rights Reserved</div>
       </div>
     </div>
-    <div class="lyrics">
-      <div class="lyrics-title">Lyrics</div>
-      <div class="lyrics-inner">
-        <p>
-Easy days trail behind me, reminding me<br>
-There’s nothing lost when a smile gets through.<br>
-Reachin’ back for warm salvation,<br>
-quiet becomes all my memories, of you—<br>
-you’re waiting somewhere… down the line—<br>
-<br>
-living blindly, no doubts, living fully,<br>
-never lost to sorrow…<br>
-still writin’ your timeline.<br>
-<br>
-Heaven’s just a doorway, I’m standin’ in the frame.<br>
-Morning spills all around me… warmth cuts right through—<br>
-nothing feels the same.<br>
-I’m breathing in spaces between your world and mine,<br>
-I’ll keep livin’ gently, finding my own timeline.<br>
-<br>
-Hold my breath, the world’s still turning,<br>
-Something wild is drawing near.<br>
-Eyes on eyes—the moment burning,<br>
-What we are feels clearer here.<br>
-Breath and heartbeat find their timing,<br>
-Quiet grace in borrowed space.<br>
-Life on life, the lines aligning,<br>
-Two worlds learning how to face.<br>
-<br>
-Another misty morning,<br>
-frost sparkles the way you shine.<br>
-What was lost ain’t gone forever,<br>
-you’re just waitin’ down the line.<br>
-<br>
-Heaven’s just a doorway, I’m standin’ in the frame.<br>
-Morning spills all around me… warmth cuts right through—<br>
-nothing feels the same.<br>
-I’m breathing in spaces between your world and mine,<br>
-I’ll keep livin’ gently, finding my own timeline.<br>
-<br>
-Easy days trail behind me, reminding me<br>
-the heart keeps beatin’, down the line…<br>
+
+    <!-- MAIN -->
+    <div class="main-row">
+
+      <!-- COVER + PLAYER -->
+      <div class="cover-and-player">
+
+        <div class="cover-box">
+          <img src="cover_down_the_line.jpg" alt="Down the Line cover art">
+          <div class="cover-gradient"></div>
+          <div class="small-caption">Down the Line · Maria Alesse</div>
+        </div>
+
+        <div>
+          <div class="audio-label">Listen to the demo</div>
+
+          <!-- AUDIO PLAYER (no download, loopable) -->
+          <audio id="player" controls controlslist="nodownload" loop>
+            <source src="Down_the_Line_Maria_Alesse_Demo_320kbps_UNIVERSAL.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+
+          <!-- LOOP TOGGLE BUTTON -->
+          <div id="loopBtn" class="loop-btn active">🔁 Loop: On</div>
+        </div>
+      </div>
+
+      <!-- LYRICS -->
+      <div class="lyrics-panel">
+        <h2>Lyrics</h2>
+        <div class="lyrics">
+Easy days trail behind me, reminding me
+There’s nothing lost when a smile gets through.
+Reachin’ back for warm salvation,
+quiet becomes all my memories, of you—
+you’re waiting somewhere… down the line—
+living blindly, no doubts, living fully,
+never lost to sorrow… still writing your timeline.
+
+Heaven’s just a doorway, I’m standin’ in the frame.
+Morning spills all around me… warmth cuts right through—
+nothing feels the same.
+I’m breathing in spaces between your world and mine,
+I’ll keep livin’ gently, finding my own timeline.
+
+Hold my breath, the world’s still turning,
+Something wild is drawing near.
+Eyes on eyes—the moment burning,
+What we are feels clearer here.
+Breath and heartbeat find their timing,
+Quiet grace in borrowed space.
+Life on life, the lines aligning,
+Two worlds learning how to face.
+
+Another misty morning,
+frost sparkles the way you shine.
+What was lost ain’t gone forever,
+you’re just waitin’ down the line.
+
+Heaven’s just a doorway, I’m standin’ in the frame.
+Morning spills all around me… warmth cuts right through—
+nothing feels the same.
+I’m breathing in spaces between your world and mine,
+I’ll keep livin’ gently, finding my own timeline.
+
+Easy days trail behind me, reminding me
+the heart keeps beatin’, down the line…
 beatin’ down the line…
-        </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER WITH CONTACT + HIDDEN CATICORN CHARM -->
+    <div class="footer-note">
+      <div class="footer-contact">
+        Inquiries: <a href="mailto:mariaalesse.writer@gmail.com">mariaalesse.writer@gmail.com</a>
+      </div>
+      <div class="footer-copy">
+        <span>© 2025 Maria Alesse</span>
+        <img src="caticorn_mascot.png" alt="Caticorn good luck mark" class="footer-caticorn">
       </div>
     </div>
-    <div class="footer-note">
-      © 2025 Maria Alesse. All Rights Reserved. Demo for listening and review purposes only.
-    </div>
-  </main>
+
+  </div>
+
+  <!-- LOOP BUTTON SCRIPT -->
+  <script>
+    const player = document.getElementById("player");
+    const loopBtn = document.getElementById("loopBtn");
+
+    loopBtn.addEventListener("click", () => {
+      player.loop = !player.loop;
+      loopBtn.classList.toggle("active", player.loop);
+      loopBtn.textContent = player.loop ? "🔁 Loop: On" : "🔁 Loop: Off";
+    });
+  </script>
+
 </body>
 </html>
