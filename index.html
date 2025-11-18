@@ -318,8 +318,61 @@ beatin’ down the line…
       loopBtn.textContent = player.loop ? "🔁 Loop: On" : "🔁 Loop: Off";
     });
   </script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const audio = document.querySelector("audio");
+
+  // If no audio element or GA isn't ready, stop
+  if (!audio || typeof gtag !== "function") return;
+
+  // Track when audio is played
+  audio.addEventListener("play", () => {
+    gtag('event', 'audio_play', {
+      event_category: 'Audio',
+      event_label: 'Down The Line'
+    });
+  });
+
+  // Track when audio is paused
+  audio.addEventListener("pause", () => {
+    gtag('event', 'audio_pause', {
+      event_category: 'Audio',
+      event_label: 'Down The Line',
+      current_time: audio.currentTime
+    });
+  });
+
+  // Track when audio finishes
+  audio.addEventListener("ended", () => {
+    gtag('event', 'audio_complete', {
+      event_category: 'Audio',
+      event_label: 'Down The Line'
+    });
+  });
+
+  // Track progress in 10% chunks
+  let lastPercentReported = 0;
+
+  audio.addEventListener("timeupdate", () => {
+    if (!audio.duration || isNaN(audio.duration)) return;
+
+    const percent = Math.round((audio.currentTime / audio.duration) * 100);
+
+    // Only report every 10% (10, 20, 30, ...)
+    if (percent >= lastPercentReported + 10 && percent <= 100) {
+      lastPercentReported = percent;
+      gtag('event', 'audio_progress', {
+        event_category: 'Audio',
+        event_label: 'Down The Line',
+        percent_listened: percent
+      });
+    }
+  });
+});
+</script>
 
 </body>
 </html>
+
 
 
