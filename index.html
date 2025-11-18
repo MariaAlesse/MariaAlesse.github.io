@@ -237,16 +237,26 @@
         <div>
           <div class="audio-label">Listen to the demo</div>
 
-          <!-- AUDIO PLAYER (no download, loopable) -->
-          <audio id="player" controls controlslist="nodownload" loop>
-            <source src="Down_the_Line_Maria_Alesse_Demo_320kbps_UNIVERSAL.mp3" type="audio/mpeg" />
-            Your browser does not support the audio element.
-          </audio>
+          <!-- AUDIO + LOOP + SHARE SECTION -->
+<div class="audio-controls-wrapper">
 
-          <!-- LOOP TOGGLE BUTTON -->
-          <div id="loopBtn" class="loop-btn active">🔁 Loop: On</div>
-        </div>
-      </div>
+  <!-- AUDIO PLAYER -->
+  <audio id="audioPlayer" controls loop>
+    <source src="Down_the_Line_Maria_Alesse_Demo_320kbps.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- LOOP BUTTON -->
+  <button id="loopToggle" class="loop-btn">
+    🔁 Loop
+  </button>
+
+  <!-- SHARE BUTTON (Placed right of Loop) -->
+  <button id="share-btn" class="share-button">
+    🔗 Share
+  </button>
+
+</div>
+
 
       <!-- LYRICS -->
       <div class="lyrics-panel">
@@ -376,6 +386,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </body>
 </html>
+
 
 
 
