@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <head>
   <meta charset="UTF-8">
   <title>Down the Line – Maria Alesse</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Song demo: Down the Line by Maria Alesse. Listen to the full track and read the lyrics.">
 
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-JZEFQ9DMSP"></script>
@@ -11,17 +12,9 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-JZEFQ9DMSP');
   </script>
 
-  <!-- any other existing tags... -->
-</head>
-
-  <meta charset="UTF-8" />
-  <title>Down the Line · Maria Alesse (Demo)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Song demo: Down the Line by Maria Alesse. Listen to the full track and read the lyrics." />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -114,21 +107,37 @@
       outline: none;
     }
 
-    /* LOOP BUTTON */
-    .loop-btn {
-      margin-top: 6px;
+    /* AUDIO CONTROL ROW: AUDIO + LOOP + SHARE */
+    .audio-controls-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .loop-btn,
+    .share-button {
       background: #292942;
       color: #e6d8ff;
       padding: 8px 14px;
       border-radius: 10px;
       font-size: 13px;
       cursor: pointer;
-      width: fit-content;
-      user-select: none;
       border: 1px solid rgba(255,255,255,0.15);
       transition: 0.3s;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
-    .loop-btn:hover { background: #38385a; }
+
+    .loop-btn:hover,
+    .share-button:hover {
+      background: #38385a;
+    }
+
     .loop-btn.active {
       background: #5f4b9b;
       color: #ffffff;
@@ -164,9 +173,10 @@
       gap: 4px;
       align-items: flex-end;
     }
-.footer-contact {
-  font-size: 14px;   /* bigger text, like lyrics */
-}
+
+    .footer-contact {
+      font-size: 14px;   /* bigger text, like lyrics */
+    }
 
     .footer-contact a {
       color: #e6d0ff;
@@ -238,25 +248,27 @@
           <div class="audio-label">Listen to the demo</div>
 
           <!-- AUDIO + LOOP + SHARE SECTION -->
-<div class="audio-controls-wrapper">
+          <div class="audio-controls-wrapper">
 
-  <!-- AUDIO PLAYER -->
-  <audio id="audioPlayer" controls loop>
-    <source src="Down_the_Line_Maria_Alesse_Demo_320kbps.mp3" type="audio/mpeg">
-  </audio>
+            <!-- AUDIO PLAYER -->
+            <audio id="audioPlayer" controls>
+              <source src="Down_the_Line_Maria_Alesse_Demo_320kbps.mp3" type="audio/mpeg">
+            </audio>
 
-  <!-- LOOP BUTTON -->
-  <button id="loopToggle" class="loop-btn">
-    🔁 Loop
-  </button>
+            <!-- LOOP BUTTON -->
+            <button id="loopToggle" class="loop-btn">
+              🔁 Loop (Off)
+            </button>
 
-  <!-- SHARE BUTTON (Placed right of Loop) -->
-  <button id="share-btn" class="share-button">
-    🔗 Share
-  </button>
+            <!-- SHARE BUTTON (right of Loop) -->
+            <button id="share-btn" class="share-button">
+              🔗 Share
+            </button>
 
-</div>
+          </div>
+        </div>
 
+      </div>
 
       <!-- LYRICS -->
       <div class="lyrics-panel">
@@ -307,10 +319,10 @@ beatin’ down the line…
     <!-- FOOTER WITH CONTACT + HIDDEN CATICORN CHARM -->
     <div class="footer-note">
       <div class="footer-contact">
-        Inquiries: <a href="mailto:mariaalesse.writer@gmail.com" class="email-link">
-  mariaalesse.writer@gmail.com
-</a>
-
+        Inquiries:
+        <a href="mailto:mariaalesse.writer@gmail.com" class="email-link">
+          mariaalesse.writer@gmail.com
+        </a>
       </div>
       <div class="footer-copy">
         <span>© 2025 Maria Alesse</span>
@@ -320,74 +332,124 @@ beatin’ down the line…
 
   </div>
 
-  <!-- LOOP BUTTON SCRIPT -->
+  <!-- LOOP + SHARE + AUDIO ANALYTICS -->
   <script>
-    const player = document.getElementById("player");
-    const loopBtn = document.getElementById("loopBtn");
+    document.addEventListener("DOMContentLoaded", function () {
+      const audio = document.getElementById("audioPlayer");
+      const loopBtn = document.getElementById("loopToggle");
+      const shareButton = document.getElementById("share-btn");
 
-    loopBtn.addEventListener("click", () => {
-      player.loop = !player.loop;
-      loopBtn.classList.toggle("active", player.loop);
-      loopBtn.textContent = player.loop ? "🔁 Loop: On" : "🔁 Loop: Off";
+      /* LOOP TOGGLE */
+      if (audio && loopBtn) {
+        const updateLoopLabel = () => {
+          loopBtn.textContent = audio.loop ? "🔁 Loop (On)" : "🔁 Loop (Off)";
+        };
+
+        // start with loop off
+        audio.loop = false;
+        updateLoopLabel();
+
+        loopBtn.addEventListener("click", () => {
+          audio.loop = !audio.loop;
+          updateLoopLabel();
+        });
+      }
+
+      /* SHARE BUTTON */
+      if (shareButton) {
+        shareButton.addEventListener("click", async () => {
+          const shareData = {
+            title: "Down The Line — Demo",
+            text: "Listen to Down The Line by Maria Alesse",
+            url: "https://mariaalesse.github.io/"
+          };
+
+          if (navigator.share) {
+            try {
+              await navigator.share(shareData);
+              if (typeof gtag === "function") {
+                gtag('event', 'share_used', {
+                  event_category: 'engagement',
+                  event_label: 'native_share'
+                });
+              }
+            } catch (err) {
+              console.log("Share cancelled", err);
+            }
+          } else {
+            try {
+              await navigator.clipboard.writeText(shareData.url);
+              const msg = document.createElement("div");
+              msg.textContent = "Link copied!";
+              msg.style.position = "fixed";
+              msg.style.bottom = "30px";
+              msg.style.left = "50%";
+              msg.style.transform = "translateX(-50%)";
+              msg.style.background = "rgba(0,0,0,0.8)";
+              msg.style.color = "white";
+              msg.style.padding = "10px 16px";
+              msg.style.borderRadius = "6px";
+              msg.style.fontSize = "0.95rem";
+              msg.style.zIndex = "9999";
+              document.body.appendChild(msg);
+              setTimeout(() => msg.remove(), 1500);
+
+              if (typeof gtag === "function") {
+                gtag('event', 'share_copied', {
+                  event_category: 'engagement',
+                  event_label: 'fallback_copy'
+                });
+              }
+            } catch (err) {
+              console.log("Clipboard failed", err);
+            }
+          }
+        });
+      }
+
+      /* AUDIO ANALYTICS (PLAY, PAUSE, PROGRESS, COMPLETE) */
+      if (audio && typeof gtag === "function") {
+        // play
+        audio.addEventListener("play", () => {
+          gtag('event', 'audio_play', {
+            event_category: 'Audio',
+            event_label: 'Down The Line'
+          });
+        });
+
+        // pause
+        audio.addEventListener("pause", () => {
+          gtag('event', 'audio_pause', {
+            event_category: 'Audio',
+            event_label: 'Down The Line',
+            current_time: audio.currentTime
+          });
+        });
+
+        // complete
+        audio.addEventListener("ended", () => {
+          gtag('event', 'audio_complete', {
+            event_category: 'Audio',
+            event_label: 'Down The Line'
+          });
+        });
+
+        // progress in 10% increments
+        let lastPercentReported = 0;
+        audio.addEventListener("timeupdate", () => {
+          if (!audio.duration || isNaN(audio.duration)) return;
+          const percent = Math.round((audio.currentTime / audio.duration) * 100);
+          if (percent >= lastPercentReported + 10 && percent <= 100) {
+            lastPercentReported = percent;
+            gtag('event', 'audio_progress', {
+              event_category: 'Audio',
+              event_label: 'Down The Line',
+              percent_listened: percent
+            });
+          }
+        });
+      }
     });
   </script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const audio = document.querySelector("audio");
-
-  // If no audio element or GA isn't ready, stop
-  if (!audio || typeof gtag !== "function") return;
-
-  // Track when audio is played
-  audio.addEventListener("play", () => {
-    gtag('event', 'audio_play', {
-      event_category: 'Audio',
-      event_label: 'Down The Line'
-    });
-  });
-
-  // Track when audio is paused
-  audio.addEventListener("pause", () => {
-    gtag('event', 'audio_pause', {
-      event_category: 'Audio',
-      event_label: 'Down The Line',
-      current_time: audio.currentTime
-    });
-  });
-
-  // Track when audio finishes
-  audio.addEventListener("ended", () => {
-    gtag('event', 'audio_complete', {
-      event_category: 'Audio',
-      event_label: 'Down The Line'
-    });
-  });
-
-  // Track progress in 10% chunks
-  let lastPercentReported = 0;
-
-  audio.addEventListener("timeupdate", () => {
-    if (!audio.duration || isNaN(audio.duration)) return;
-
-    const percent = Math.round((audio.currentTime / audio.duration) * 100);
-
-    // Only report every 10% (10, 20, 30, ...)
-    if (percent >= lastPercentReported + 10 && percent <= 100) {
-      lastPercentReported = percent;
-      gtag('event', 'audio_progress', {
-        event_category: 'Audio',
-        event_label: 'Down The Line',
-        percent_listened: percent
-      });
-    }
-  });
-});
-</script>
-
 </body>
 </html>
-
-
-
-
-
